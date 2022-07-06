@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Role, {as: 'role'});
     }
-    toJSON() {
-      return {...this.get(),id:undefined}
-    }
+  //   toJSON() {
+  //     return {...this.get(),id:undefined}
+  //   }
   }
   User.init({
     // uuid: {
