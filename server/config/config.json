@@ -5,7 +5,10 @@
     "database": "authority",
     "host": "127.0.0.1",
     "port": 5433, 
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "define": {
+      "timestamps": false
+    }
   },
   "test": {
     "username": "root",

@@ -10,17 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.Role, {as: 'role'});
     }
     toJSON() {
       return {...this.get(),id:undefined}
     }
   }
   User.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
-    },
+    // uuid: {
+    //   type: DataTypes.UUID,
+    //   defaultValue: DataTypes.UUIDV4
+    // },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -39,14 +39,6 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {msg: "Must be a valid email adress"}
       }
     },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      // validate:{
-      //   notNull: { msg: "User must have a role" },
-      //   notEmpty: {msg: "role must not be empty"}
-      // }
-    }
   }, {
     sequelize,
     tableName: 'users',
