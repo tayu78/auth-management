@@ -12,6 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      {/* <div className="mt-16"> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="userManagement" element={<UserMgmt />} />
@@ -19,6 +20,8 @@ function App() {
         <Route path="permissionManagement" element={<PermissionMgmt />} />
         <Route path="*" element={ <div>404 Page Not found</div>} /> 
       </Routes>
+      {/* </div> */}
+      
     </BrowserRouter>
   );
 }

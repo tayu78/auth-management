@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.menu-icon{
+   @apply   m-auto text-icon block text-slate-400 !important
+}

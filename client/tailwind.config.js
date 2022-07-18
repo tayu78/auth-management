@@ -4,6 +4,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    fontSize: {
+      'icon' : '350px'
+    },
     extend: {
       gridTemplateColumns: {
         'auto-fit': 'repeat(auto-fit, minmax(300px, 500px))',
