@@ -4,7 +4,16 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        'auto-fit': 'repeat(auto-fit, minmax(300px, 500px))',
+        'auto-fill': 'repeat(auto-fill, minmax(300px, 500px))',
+      },
+      gridTemplateRows: {
+        'auto-fit': 'repeat(auto-fit, minmax(300px, 600px))',
+        'auto-fill': 'repeat(auto-fill, minmax(300px, 600px))',
+      },
+    },
   },
   plugins: [],
 }
