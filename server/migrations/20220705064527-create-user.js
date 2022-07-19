@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4
-      },
+      // uuid: {
+      //   type: DataTypes.UUID,
+      //   defaultValue: DataTypes.UUIDV4
+      // },
       name: {
         type: DataTypes.STRING,
         allowNull:false
@@ -20,18 +20,22 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull:false
       },
+      passwprd: {
+        type: DataTypes.STRING,
+        allowNull:false
+      },
       role: {
         type: DataTypes.STRING,
         allowNull:false
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE
-      }
+      // createdAt: {
+      //   allowNull: false,
+      //   type: DataTypes.DATE
+      // },
+      // updatedAt: {
+      //   allowNull: false,
+      //   type: DataTypes.DATE
+      // }
     });
   },
   async down(queryInterface, DataTypes) {
