@@ -4,16 +4,16 @@ const {  User } = require('../models');
 
 
 
-router.post('/', async (req, res) => {
-    const { name, email, role } = req.body
-    try {
-        const user = await User.create({ name, email, role })
-        return res.json(user)
-    } catch (err) {
-        console.log(err)
-        return res.status(500).json(err);
-    }
-})
+// router.post('/', async (req, res) => {
+//     const { name, email, role } = req.body
+//     try {
+//         const user = await User.create({ name, email, role })
+//         return res.json(user)
+//     } catch (err) {
+//         console.log(err)
+//         return res.status(500).json(err);
+//     }
+// })
 
 router.get('/', async (req,res) => {
     try {
@@ -24,6 +24,8 @@ router.get('/', async (req,res) => {
         return res.status(500).json(err)
     }
 })
+
+
 
 router.get('/:id', async (req, res) => {
     const id  = req.params.id
@@ -41,6 +43,36 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const id = req.params;
+})
+
+router.post('/signup', async (req, res) => {
+    
+    const { name, email, password } = req.body
+    console.log(password)
+    try {
+        const user = await User.create({ name, email, password })
+         return res.json(user)
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+})
+
+router.post("/signin", async (req, res) => {
+    const { name, email, password } = req.body;
+    try {
+        const user = await User.findOne({
+            where: {
+            name,email,password
+            }
+        })
+         return res.json(user)
+    } catch (err) {
+        console.log(err)
+        return  res.status(500).json(err)
+    }
+   
+    
 })
 
 module.exports = router;
