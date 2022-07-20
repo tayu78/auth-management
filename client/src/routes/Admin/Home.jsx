@@ -9,11 +9,10 @@ const Home = () => {
       <>
           {/* <h1>Admin Home</h1> */}
           <div>
-          <ul className='grid grid-cols-auto-fit p-10 w-4/5 m-auto justify-center gap-10'>
+          <ul className='grid grid-cols-auto-fit justify-center gap-10 p-10 w-4/5 m-auto' >
           <MenuItem url={"userManagement"} title={"User Management"} icon={<ManageAccountsOutlinedIcon  className="menu-icon"/>} />
           <MenuItem url={"roleManagement"} title={"Role Management"} icon={<GroupIcon className='menu-icon' /> } />
           <MenuItem url={"permissionManagement"} title={"Permission Management"} icon={<KeyIcon className='menu-icon' />} />
-            
           </ul>
           </div>
          

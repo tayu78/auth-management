@@ -6,6 +6,8 @@ import Home from "./routes/Admin/Home";
 import UserMgmt from './routes/Admin/UserMgmt';
 import RoleMgmt from './routes/Admin/RoleMgmt';
 import PermissionMgmt from './routes/Admin/PermissionMgmt';
+import SignForm from './routes/Sign/SignForm';
+
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="userManagement" element={<UserMgmt />} />
         <Route path="roleManagement" element={<RoleMgmt />} />
         <Route path="permissionManagement" element={<PermissionMgmt />} />
+        <Route path='signin' element={ <SignForm isLogin />} />
+        <Route path='signup' element={ <SignForm  />} />
         <Route path="*" element={ <div>404 Page Not found</div>} /> 
       </Routes>
       {/* </div> */}
