@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import  MenuItem from './MenuItem';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import GroupIcon from '@mui/icons-material/Group';
 import KeyIcon from '@mui/icons-material/Key';
+import { useUserContext } from '../../hooks/useUserContext';
 
 const Home = () => {
-  return (
+  const { user } = useUserContext();
+  
+
+  return(
       <>
-          {/* <h1>Admin Home</h1> */}
+      <h1>Hello, {user?.name}</h1>
           <div>
           <ul className='grid grid-cols-auto-fit justify-center gap-10 p-10 w-4/5 m-auto' >
           <MenuItem url={"userManagement"} title={"User Management"} icon={<ManageAccountsOutlinedIcon  className="menu-icon"/>} />
