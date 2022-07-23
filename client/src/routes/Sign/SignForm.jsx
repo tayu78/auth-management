@@ -44,15 +44,15 @@ const SignForm = ({ isLogin }) => {
         <div className='flex flex-col items-center  '>
             <div >
               <label htmlFor="username">Name</label>
-              <input type="text" id="nuserame" name="username" className="border-2 block" value={username} onChange={e=>setUsername(e.target.value)} />
+              <input type="text" id="nuserame" name="username" className="input-text" value={username} onChange={e=>setUsername(e.target.value)} />
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" name="password" className='border-2 block' value={password} onChange={e=>setPassword(e.target.value)} />
+              <input type="password" id="password" name="password" className='input-text' value={password} onChange={e=>setPassword(e.target.value)} />
             </div>
             <div>
               <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" className='border-2 block' value={email} onChange={e=>setEmail(e.target.value)} />
+            <input type="email" id="email" name="email" className='input-text' value={email} onChange={e=>setEmail(e.target.value)} />
             </div>
           <button type="submit" className='border-2 bg-slate-500 text-white w-20 p-2 m-5' >{ isLogin? "Sign In" : "Sign Up"}</button>
         </div> 
