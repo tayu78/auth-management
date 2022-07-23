@@ -18,7 +18,8 @@ module.exports = {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false,
+        unique: true
       },
       passwprd: {
         type: DataTypes.STRING,
