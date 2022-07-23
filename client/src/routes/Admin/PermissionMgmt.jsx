@@ -1,20 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from "axios";
 import { SERVER_DOMAIN } from '../../cons/Cons';
+import useFetch from '../../hooks/useFetch';
 
 const PermissionMgmt = () => {
   const [permissionName, setPermissionName] = useState("");
-  const [permissions, setPermissions] = useState([]);
-
-  const fetchPermissions = useCallback(async () => {
-    const res = await axios.get(`${SERVER_DOMAIN}/permissions`);
-     setPermissions(res.data);
-   },[]) 
-    
   
-  useEffect(() => {
-    fetchPermissions()
-  },[fetchPermissions])
+  const { data: permissions, fetchData: fetchPermissions } = useFetch("permissions");
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,10 +43,10 @@ const PermissionMgmt = () => {
              <th>name</th>
            </thead>
            <tbody>
-             {permissions.map((permisson) =>{
-               return <tr>
-                 <td>{permisson.name}</td>
-                 <td><button onClick={()=>handleDelete(permisson.name)}>delete</button></td>
+             {permissions.map((permission) =>{
+               return <tr key={permission.id}>
+                 <td>{permission.name}</td>
+                 <td><button onClick={()=>handleDelete(permission.name)}>delete</button></td>
                </tr>
               }) }
              
