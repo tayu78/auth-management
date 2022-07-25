@@ -33,20 +33,23 @@ const PermissionMgmt = () => {
             <label>name</label>
              <input className='input-text' value={permissionName} onChange={e => setPermissionName(e.target.value)} />
            </div>
-           <button type='submit'>Make Permission</button>
+           <div className='text-right'>
+            <button className='border-2 p-2 mt-5' type='submit'>Make Permission</button>
+           </div>
          </form>
        </div>
 
        <div>
-         <table>
-           <thead>
-             <th>name</th>
+         <table className='mt-5 w-full border-y-2'>
+           <thead className='border-y-2 text-left'>
+             <th className='w-4/5' >name</th>
+             <th ></th>
            </thead>
            <tbody>
              {permissions.map((permission) =>{
                return <tr key={permission.id}>
                  <td>{permission.name}</td>
-                 <td><button onClick={()=>handleDelete(permission.name)}>delete</button></td>
+                 <td className='text-center'><button onClick={()=>handleDelete(permission.name)}>delete</button></td>
                </tr>
               }) }
              
