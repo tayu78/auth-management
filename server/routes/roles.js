@@ -38,6 +38,22 @@ router.get('/', async (req,res) => {
     }
 })
 
+router.get('/:name', async (req, res) => {
+    const { name } = req.params;
+    try {
+        const role = await Role.findOne({
+            where: { name },
+        })
+        const rolesPermissions = await role.getPermissions()
+        const rolesPermissionsNames = rolesPermissions.map(d => d.dataValues.name)
+        
+        return res.json(rolesPermissionsNames);
+        
 
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+})
 
 module.exports = router;

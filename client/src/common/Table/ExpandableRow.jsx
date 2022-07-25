@@ -1,14 +1,17 @@
-import React, { useState }  from 'react'
+import React, { useState,useEffect }  from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-const ExpandableRow = ({ children,key }) => {
+import useFetch from '../../hooks/useFetch';
+
+const ExpandableRow = ({ children,key,endpoint }) => {
     const [isExpand, setIsExpand] = useState(false);
 
     const handleExpand = () => {
         setIsExpand(prev => !prev);
     }
-        
+    
+    const { data } = useFetch(endpoint)
     
     
     return (
@@ -18,18 +21,17 @@ const ExpandableRow = ({ children,key }) => {
                 {children} 
         </tr>
         {
-           isExpand && (
-                    <tr >
-                        <td></td>
-                        <td>hello</td>
-                    </tr>
-   
+                isExpand && (
+                    data.map(d => {
+                        return (
+                            <tr key={d}>
+                                <td></td>
+                                <td>{d}</td>
+                            </tr>
+                      )  
+                    })  
         )}
         </>
-      
-        
-        
-        
   )
 }
 

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { SERVER_DOMAIN } from '../../cons/Cons';
 import useFetch from '../../hooks/useFetch';
 import MultipleSelectDropDown from '../../common/MultipleSelectDropDown';
 import ExpandableRow from '../../common/Table/ExpandableRow';
+
 
 
 const RoleMgmt = () => {
@@ -12,7 +15,13 @@ const RoleMgmt = () => {
 
 
   const { data: permissions } = useFetch("permissions");
-  const { data: roles,fetchData: fetchRoles } = useFetch("roles");
+  const { data: rolesPermission } = useFetch("roles/Admin");
+  const { data: roles, fetchData: fetchRoles } = useFetch("roles");
+  
+  
+  useEffect(() => {
+    console.log("rolesPermission",rolesPermission)
+  },[rolesPermission])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,9 +79,9 @@ const RoleMgmt = () => {
                  <td><button onClick={()=>handleDelete(role.name)}>delete</button></td>
                </tr> */}
 
-               return <ExpandableRow key={role.id} >
+               return <ExpandableRow key={role.id} endpoint={`roles/${role.name}`} >
                  <td>{role.name}</td>
-                 <td><button onClick={() => handleDelete(role.name)}>delete</button></td>
+                 <td><DeleteIcon onClick={() => handleDelete(role.name)} /></td>
                </ExpandableRow>
               }) }
              
