@@ -15,14 +15,9 @@ const RoleMgmt = () => {
 
 
   const { data: permissions } = useFetch("permissions");
-  const { data: rolesPermission } = useFetch("roles/Admin");
   const { data: roles, fetchData: fetchRoles } = useFetch("roles");
   
   
-  useEffect(() => {
-    console.log("rolesPermission",rolesPermission)
-  },[rolesPermission])
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!roleName){return} //TODO: display error component
