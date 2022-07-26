@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base{
+   h1{
+      @apply text-3xl;
+   }
+}
+
+
 .menu-icon{
    @apply   m-auto text-icon block text-slate-400 !important
 }
@@ -9,3 +16,4 @@
 .input-text{
    @apply border-2 block
 }
+

@@ -1,7 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { SERVER_DOMAIN } from '../../cons/Cons';
 import useFetch from '../../hooks/useFetch';
+
 
 const PermissionMgmt = () => {
   const [permissionName, setPermissionName] = useState("");
@@ -34,7 +37,7 @@ const PermissionMgmt = () => {
              <input className='input-text' value={permissionName} onChange={e => setPermissionName(e.target.value)} />
            </div>
            <div className='text-right'>
-            <button className='border-2 p-2 mt-5' type='submit'>Make Permission</button>
+            <button className='border-2 p-2 mt-5' type='submit'>Create Permission</button>
            </div>
          </form>
        </div>
@@ -49,7 +52,7 @@ const PermissionMgmt = () => {
              {permissions.map((permission) =>{
                return <tr key={permission.id}>
                  <td>{permission.name}</td>
-                 <td className='text-center'><button onClick={()=>handleDelete(permission.name)}>delete</button></td>
+                 <td className='text-center'><DeleteIcon onClick={()=>handleDelete(permission.name)} /></td>
                </tr>
               }) }
              

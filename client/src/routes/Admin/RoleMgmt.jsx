@@ -38,7 +38,7 @@ const RoleMgmt = () => {
 
   return (
     <div className='w-2/3 m-auto border-2 p-16 mt-10'>
-      <h1>Role Management</h1>
+      <h1 className='text-3xl'>Role Management</h1>
       <form className="mt-5" onSubmit={handleSubmit}>
         <div className='mb-5'>
           <label htmlFor='role-name'>name</label>
@@ -63,7 +63,7 @@ const RoleMgmt = () => {
 
       <table className='mt-5 w-full border-y-2'>
            <thead className='border-y-2 text-left'>
-              <th>name</th>
+              <th >name</th>
               {/* <th>permission</th> */}
               <th></th>
            </thead>
