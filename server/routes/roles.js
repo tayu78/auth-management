@@ -56,4 +56,22 @@ router.get('/:name', async (req, res) => {
     }
 })
 
+
+router.delete("/:name",async (req, res) => {
+    const { name } = req.params;
+    console.log("delete come")
+    try {
+        await Role.destroy({
+            where: {
+              name
+            }
+        });
+        res.send(`role ${name} is deleted successfully!!!`)
+        
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+})
+
 module.exports = router;

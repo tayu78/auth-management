@@ -26,7 +26,8 @@ const RoleMgmt = () => {
   }
 
   const handleDelete = async (name) => {
-    await axios.delete(`${SERVER_DOMAIN}/roles/${name}`)
+    console.log("delete start")
+    await axios.delete(`${SERVER_DOMAIN}/roles/${name}`);
     await fetchRoles();
   }
 
@@ -45,11 +46,6 @@ const RoleMgmt = () => {
           <input id='role-name' value={roleName} onChange={e => setRoleName(e.target.value)} className="input-text" />
         </div>
         <div>
-          {/* <select>
-            {permissions.map((permission) => {
-              return <option> {permission.name}</option>
-            })}
-          </select> */}
           <MultipleSelectDropDown
             options={permissions}
             keyName="name"
@@ -64,19 +60,13 @@ const RoleMgmt = () => {
       <table className='mt-5 w-full border-y-2'>
            <thead className='border-y-2 text-left'>
               <th >name</th>
-              {/* <th>permission</th> */}
               <th></th>
            </thead>
            <tbody>
              {roles.map((role) =>{
-               {/* return <tr key={role.id}>
-                 <td>{role.name}</td>
-                 <td><button onClick={()=>handleDelete(role.name)}>delete</button></td>
-               </tr> */}
-
                return <ExpandableRow key={role.id} endpoint={`roles/${role.name}`} >
-                 <td>{role.name}</td>
-                 <td><DeleteIcon onClick={() => handleDelete(role.name)} /></td>
+                 <td className="w-5/6">{role.name}</td>
+                 <td><DeleteIcon className="hover:bg-slate-300 " onClick={() => handleDelete(role.name)} /></td>
                </ExpandableRow>
               }) }
              

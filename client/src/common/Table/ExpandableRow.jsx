@@ -16,7 +16,7 @@ const ExpandableRow = ({ children,key,endpoint }) => {
     
     return (
         <>
-          <tr className='bg-slate-100' key={key}>     
+          <tr className='bg-slate-100 hover:bg-slate-200 ' key={key}>     
             <td className="w-3" onClick={handleExpand}>{ isExpand ? <ArrowDropDownIcon /> : <ArrowRightIcon /> }</td>
                 {children} 
         </tr>
