@@ -15,7 +15,7 @@ const useFetch = (endpoint) => {
       fetchData()
      }, [fetchData])
   
-  return {data,error,fetchData}
+  return {data,setData,error,fetchData}
   
 }
 

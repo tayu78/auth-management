@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -31,9 +31,7 @@ const RoleMgmt = () => {
     await fetchRoles();
   }
 
-  useEffect(() => {
-    console.log(roles)
-  }, [roles]);
+  
 
   
 
