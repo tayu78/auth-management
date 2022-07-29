@@ -13,7 +13,7 @@ const Header = () => {
   
   
   return (
-    <div className='flex items-center justify-between  bg-slate-800 h-16  text-white px-3' >
+    <div className='flex items-center justify-between  bg-slate-800 h-16  text-white px-3 fixed top-0 left-0 w-full'  >
       <Link to={"/"}>KENGENKANRI</Link> 
       {user && 
         <nav className='flex items-center justify-around w-1/3'>

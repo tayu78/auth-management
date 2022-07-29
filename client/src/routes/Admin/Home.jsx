@@ -11,7 +11,7 @@ const Home = () => {
 
   return(
       <>
-      <h1>Hello, {user?.name}</h1>
+      {/* <h1>Hello, {user?.name}</h1> */}
           <div>
           <ul className='grid grid-cols-auto-fit justify-center gap-10 p-10 w-4/5 m-auto' >
           <MenuItem url={"userManagement"} title={"User Management"} icon={<ManageAccountsOutlinedIcon  className="menu-icon"/>} />

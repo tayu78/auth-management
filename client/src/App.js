@@ -18,6 +18,7 @@ function App() {
 
 
   return (
+    <div className='pt-20'>
     <BrowserRouter>
       <UserContext.Provider value={{user,setUser}} >
       <Header />
@@ -34,7 +35,8 @@ function App() {
       </Routes>
       </UserContext.Provider>
      
-    </BrowserRouter>
+      </BrowserRouter>
+      </div>
   );
 }
 
