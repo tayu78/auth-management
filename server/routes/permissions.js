@@ -5,7 +5,7 @@ const {  Permission } = require('../models');
 
 
 router.post('/', async (req, res) => {
-    const { name} = req.body
+    const {name} = req.body
     try {
         const permission = await Permission.create({ name })
         return res.json(permission)
@@ -25,6 +25,23 @@ router.get('/', async (req,res) => {
     }
 })
 
+router.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const {name} = req.body
+    try {
+        await Permission.update({ name }, {
+            where: {
+              id
+            }
+          });
+
+          return  res.status(200).send("user updated successfully !!!")
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err)
+    }
+})
+
 router.delete('/:name', async (req,res) => {
     const { name } = req.params;
     try {
@@ -39,28 +56,6 @@ router.delete('/:name', async (req,res) => {
         return res.status(500).json(err);
     }
 })
-
-
-
-// router.get('/:id', async (req, res) => {
-//     const id  = req.params.id
-//     try {
-//         const users = await User.findOne({
-//             where: {
-//             id
-//         }})
-//         return res.json(users);
-//     } catch(err) {
-//         console.log(err);
-//         return res.status(500).json(err)
-//     }
-// })
-
-// router.put('/:id', async (req, res) => {
-//     const id = req.params;
-// })
-
-
 
 
 

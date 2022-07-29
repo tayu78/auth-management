@@ -6,7 +6,7 @@ import Header from "./common/Header";
 import Home from "./routes/Admin/Home";
 import UserMgmt from './routes/Admin/UserMgmt';
 import RoleMgmt from './routes/Admin/RoleMgmt';
-import PermissionMgmt from './routes/Admin/PermissionMgmt';
+import PermissionMgmt from './routes/Admin/PermissionMgmt/PermissionMgmt';
 import SignForm from './routes/Sign/SignForm';
 import { UserContext } from "./contexts/UserContext";
 import ProtectedRoute from './common/ProtectedRoute';
