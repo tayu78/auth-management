@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { SERVER_DOMAIN } from '../../cons/Cons';
 import useFetch from '../../hooks/useFetch';
+import FormInput from '../../common/Form/FormInput';
 
 
 
@@ -12,13 +15,15 @@ const UserMgmt = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [isDropdownHidden, setIsDropdownHidden] = useState(false);
 
   const { data: users, fetchData: fetchUsers } = useFetch("users");
   const { data: roles } = useFetch("roles");
 
   
   const handleSelect = (e) => {
-   setUserRole(e.target.value)
+    setUserRole(e.target.textContent);
+    setIsDropdownHidden(true);
  }
 
  const handleDelete = async (email) => {
@@ -32,6 +37,9 @@ const UserMgmt = () => {
     await fetchUsers();
   }
 
+  const handleDropdownOpen = ()=> {
+    setIsDropdownHidden(prev => !prev);
+  }
   
 
   return (
@@ -51,12 +59,23 @@ const UserMgmt = () => {
           <input id='role-name' value={userPassword} onChange={e => setUserPassword(e.target.value)} className="input-text" />
         </div>
         <div>
-          <select onChange={handleSelect}>
-          <option value="" selected disabled hidden>Choose User Role here</option>
-            {roles.map(role => {
-              return <option >{role.name}</option>
-            })}
-         </select>
+          <div className='relative w-3/5  '> 
+            <p onClick={handleDropdownOpen} className='relativeborder p-2 bg-red-500 rounded  appearance-none cursor-pointer' onChange={handleSelect}>
+              {userRole || "Choose User Role here"}
+              {isDropdownHidden ? <KeyboardArrowDownIcon class="absolute top-3 right-4 w-5 " /> : <KeyboardArrowRightIcon class="absolute top-3 right-4 w-5" />}
+            </p>
+
+            <div className={isDropdownHidden ?  'opacity-0  mt-2  rounded absolute ' : ' mt-2 max-h-40 overflow-scroll rounded absolute w-full'}>
+            <ul className='rounded bg-red-500 cursor-pointer' >
+              {roles.map(role => {
+                  return <li key={role.id + role.name} onClick={handleSelect} className="align-middle p-3  hover:bg-red-400" >{role.name}</li>
+                })}
+              </ul>
+           </div> 
+        
+          </div>
+         
+           
         </div>
         <div className='text-right'>
           <button  className='border-2 p-2 mt-5' type='submit'>Create User</button>

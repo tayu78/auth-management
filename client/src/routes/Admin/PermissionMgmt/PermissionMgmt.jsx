@@ -22,7 +22,7 @@ const PermissionMgmt = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!permissionName){return} //TODO: display error component
-   await axios.post(`${SERVER_DOMAIN}/permissions`, { name: permissionName });
+    await axios.post(`${SERVER_DOMAIN}/permissions`, { name: permissionName });
     
     await fetchPermissions();
 
@@ -61,7 +61,7 @@ const PermissionMgmt = () => {
              {permissions.map((permission) =>{
                return <tr key={permission.id}>
                  <td>{permission.name}</td>
-                 <td className=' text-right pr-3'><EditIcon onClick={()=>handleEdit(permission)} /><DeleteIcon onClick={()=>handleDelete(permission.name)} /></td>
+                 <td className=' text-right pr-3'><EditIcon className="cursor-pointer" onClick={()=>handleEdit(permission)} /><DeleteIcon className="cursor-pointer" onClick={()=>handleDelete(permission.name)} /></td>
                </tr>
               }) }
              
