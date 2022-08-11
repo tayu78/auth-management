@@ -4,7 +4,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 
 
-const SelectDropDown = ({selectedData,setSelectedData,selectOptions}) => {
+const SelectDropDown = ({selectedData,setSelectedData,selectOptions,initialOption}) => {
   const [isDropdownHidden, setIsDropdownHidden] = useState(true);
   const handleSelect = (e) => {
     setSelectedData(e.target.textContent);
@@ -17,8 +17,8 @@ const SelectDropDown = ({selectedData,setSelectedData,selectOptions}) => {
   return (
     <div>
     <div className='relative w-3/5  '> 
-      <p onClick={handleDropdownOpen} className='relativeborder p-2 border rounded  appearance-none cursor-pointer' onChange={handleSelect}>
-        {selectedData || "Choose User Role here"}
+      <p onClick={handleDropdownOpen} className='relative border p-2 border rounded  appearance-none cursor-pointer' onChange={handleSelect}>
+        {selectedData || initialOption}
         {isDropdownHidden ? <KeyboardArrowDownIcon class="absolute top-3 right-4 w-5 " /> : <KeyboardArrowRightIcon class="absolute top-3 right-4 w-5" />}
       </p>
 

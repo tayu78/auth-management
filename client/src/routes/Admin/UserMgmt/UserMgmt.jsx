@@ -3,10 +3,10 @@ import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-import { SERVER_DOMAIN } from '../../cons/Cons';
-import useFetch from '../../hooks/useFetch';
-import FormInput from '../../common/Form/FormInput';
-import SelectDropDown from "../../common/Select/SelectDropDown";
+import { SERVER_DOMAIN } from '../../../cons/Cons';
+import useFetch from '../../../hooks/useFetch';
+import FormInput from '../../../common/Form/FormInput';
+import SelectDropDown from "../../../common/Select/SelectDropDown";
 
 
 
@@ -48,7 +48,7 @@ const UserMgmt = () => {
           <input id='role-name' value={userPassword} onChange={e => setUserPassword(e.target.value)} className="input-text" />
         </div>
 
-        <SelectDropDown selectedData={userRole} setSelectedData={setUserRole} selectOptions={roles} />
+        <SelectDropDown selectedData={userRole} setSelectedData={setUserRole} selectOptions={roles} initialOption="Choose User Role here" />
         
         <div className='text-right'>
           <button  className='border-2 p-2 mt-5' type='submit'>Create User</button>

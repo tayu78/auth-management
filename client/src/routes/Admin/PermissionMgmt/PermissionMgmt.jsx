@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { SERVER_DOMAIN } from '../../../cons/Cons';
 import useFetch from '../../../hooks/useFetch';
-import UpdateModal from './UpdateModal';
+import PermissionUpdateModal from './PermissionUpdateModal';
 import FormInput from '../../../common/Form/FormInput';
 import FormSubmitBtn from '../../../common/Form/FormSubmitBtn';
 
@@ -70,7 +70,7 @@ const PermissionMgmt = () => {
        </div>
       </div>
       {
-      isModalOpen && <UpdateModal setIsOpen={setIsModalOpen} updatingPermission={updatingPermission} fetchPermissions={fetchPermissions}  />
+      isModalOpen && <PermissionUpdateModal setIsOpen={setIsModalOpen} updatingPermission={updatingPermission} fetchPermissions={fetchPermissions}  />
       }
      </>
   )

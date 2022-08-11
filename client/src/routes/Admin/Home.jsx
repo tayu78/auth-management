@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import  MenuItem from './MenuItem';
+import  MenuItem from '../../common/MenuItem';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import GroupIcon from '@mui/icons-material/Group';
 import KeyIcon from '@mui/icons-material/Key';
