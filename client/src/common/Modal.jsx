@@ -11,7 +11,7 @@ const Modal = ({ setIsOpen , children}) => {
       <div className='w-2/3 h-2/3 bg-white rounded ' >
       <div className='flex justify-end  mr-5'><button className='text-2xl' onClick={handleClick} >x</button></div>
        {children}
-        </div>
+      </div>
       </div>
   )
 }

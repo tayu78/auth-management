@@ -84,7 +84,7 @@ router.post("/signin", async (req, res) => {
     }
 })
 
-
+// TODO recieve email id but id
 router.delete("/:email", async (req,res) => {
     const { email } = req.params;
     try {
@@ -93,6 +93,28 @@ router.delete("/:email", async (req,res) => {
          })
         
         res.send(`user ${email} is deleted successfully!!`)
+    } catch (err) {
+        console.log(err)
+        return  res.status(500).json(err)
+    }
+})
+
+router.put("/:id", async (req,res) => {
+    const { id } = req.params;
+    const {name,email,userRole} = req.body
+    try {
+        const role = await Role.findOne({
+            where: {
+                name: userRole
+            }
+        })
+        await User.update({ name,email,roleId:role.id }, {
+            where: {
+                id
+            }
+        });
+        
+        return res.status(200).send(`user updated successfully!!!`);
     } catch (err) {
         console.log(err)
         return  res.status(500).json(err)
