@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { SERVER_DOMAIN } from '../../cons/Cons';
 import useFetch from '../../hooks/useFetch';
-import MultipleSelectDropDown from '../../common/MultipleSelectDropDown';
+import MultipleSelectDropDown from '../../common/Select/MultipleSelectDropDown';
 import ExpandableRow from '../../common/Table/ExpandableRow';
 
 

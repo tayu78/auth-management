@@ -17,6 +17,6 @@
 }
 
 .input-text{
-   @apply border-2 block
+   @apply border block
 }
 
