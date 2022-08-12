@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {  Role,Permission } = require('../models');
+const { Role,Permission } = require('../models');
 
 
 
@@ -38,6 +38,8 @@ router.get('/', async (req,res) => {
     }
 })
 
+
+//TODO change endpoint name to easy to understand (to get roles's permission)
 router.get('/:name', async (req, res) => {
     const { name } = req.params;
     try {
@@ -47,7 +49,7 @@ router.get('/:name', async (req, res) => {
         const rolesPermissions = await role.getPermissions()
         const rolesPermissionsNames = rolesPermissions.map(d => d.dataValues.name)
         
-        return res.json(rolesPermissionsNames);
+        return res.status(200).json(rolesPermissionsNames);
         
 
     } catch (err) {
@@ -55,6 +57,28 @@ router.get('/:name', async (req, res) => {
         return res.status(500).json(err);
     }
 })
+
+
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, selectedPermissions } = req.body; 
+    try {
+     const ids = selectedPermissions.map(permission => permission.id );
+       await Role.update({ name }, { where: { id } }); 
+        const role = await Role.findOne({ where: { id } })
+        const permissions = await Permission.findAll({where: {id:ids}})
+        
+        await role.setPermissions(permissions);
+        
+       res.status(200).send("role updated successfully!!!!")
+
+
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json(err);
+    }
+})
+
 
 
 router.delete("/:name",async (req, res) => {
@@ -73,5 +97,7 @@ router.delete("/:name",async (req, res) => {
         return res.status(500).json(err);
     }
 })
+
+
 
 module.exports = router;

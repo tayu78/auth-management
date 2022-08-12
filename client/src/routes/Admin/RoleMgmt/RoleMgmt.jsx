@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { SERVER_DOMAIN } from '../../../cons/Cons';
 import useFetch from '../../../hooks/useFetch';
 import MultipleSelectDropDown from '../../../common/Select/MultipleSelectDropDown';
 import ExpandableRow from '../../../common/Table/ExpandableRow';
+import RoleUpdateModal from './RoleUpdateModal';
 
 
 
 const RoleMgmt = () => {
   const [roleName, setRoleName] = useState("");
+  const [updatingRole,setUpdatingRole] = useState({})
   const [selectedPermissions, setSelectedPermissions] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   const { data: permissions } = useFetch("permissions");
@@ -25,6 +29,11 @@ const RoleMgmt = () => {
     await fetchRoles();
   }
 
+  const handleEdit = (role) => {
+    setUpdatingRole(role);
+    setIsModalOpen(true);
+  }
+
   const handleDelete = async (name) => {
     console.log("delete start")
     await axios.delete(`${SERVER_DOMAIN}/roles/${name}`);
@@ -32,11 +41,9 @@ const RoleMgmt = () => {
   }
 
   
-
-  
-
   return (
-    <div className='w-2/3 m-auto border-2 p-16 mt-10'>
+    <>
+      <div className='w-2/3 m-auto border-2 p-16 mt-10'>
       <h1 className='text-3xl'>Role Management</h1>
       <form className="mt-5" onSubmit={handleSubmit}>
         <div className='mb-5'>
@@ -62,15 +69,17 @@ const RoleMgmt = () => {
            </thead>
            <tbody>
              {roles.map((role) =>{
-               return <ExpandableRow key={role.id} endpoint={`roles/${role.name}`} >
-                 <td className="w-5/6">{role.name}</td>
-                 <td><DeleteIcon className="hover:bg-slate-300 " onClick={() => handleDelete(role.name)} /></td>
+               return <ExpandableRow key={role.id} endpoint={`roles/${role.name}`} fetchTriggerData={role} >
+                      <td className="w-5/6">{role.name}</td>
+                      <td><EditIcon onClick={() => handleEdit(role)} /> <DeleteIcon className="hover:bg-slate-300 " onClick={() => handleDelete(role.name)} /></td>
                </ExpandableRow>
               }) }
-             
            </tbody>
          </table>
-    </div>
+      </div>
+      {isModalOpen && <RoleUpdateModal setIsModalOpen={setIsModalOpen} permissions={permissions} updatingRole={updatingRole} fetchRoles={fetchRoles} />}
+    </>
+    
   )
  }
 

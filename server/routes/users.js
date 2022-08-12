@@ -84,7 +84,7 @@ router.post("/signin", async (req, res) => {
     }
 })
 
-// TODO recieve email id but id
+// TODO recieve not email  but id
 router.delete("/:email", async (req,res) => {
     const { email } = req.params;
     try {

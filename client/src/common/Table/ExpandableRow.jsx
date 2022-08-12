@@ -5,19 +5,22 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import useFetch from '../../hooks/useFetch';
 
 
-const ExpandableRow = ({ children,key,endpoint }) => {
+const ExpandableRow = ({ children,key,endpoint,fetchTriggerData }) => {
     const [isExpand, setIsExpand] = useState(false);
 
     const handleExpand = () => {
         setIsExpand(prev => !prev);
     }
     
-    const { data, setData } = useFetch(endpoint);
+    const { data, setData,fetchData } = useFetch(endpoint);
 
     useEffect(() => {
        if(!Array.isArray(data)) setData([data])
     },[data, setData])
     
+    useEffect(() => {
+        fetchData();
+    },[fetchData, fetchTriggerData])
     
     return (
         <>
