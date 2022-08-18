@@ -43,7 +43,7 @@ const PermissionMgmt = () => {
   return (
     <>
      <div className='w-2/3 m-auto border-2 p-16 mt-10'>
-       <h1>PermissionMgmt</h1>
+       <h1 className='mb-5'>PermissionMgmt</h1>
        <div>
         <form onSubmit={handleSubmit}>
             <FormInput  label="name" value={permissionName} handleChange={e => setPermissionName(e.target.value)} />

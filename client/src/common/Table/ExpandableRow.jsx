@@ -20,7 +20,8 @@ const ExpandableRow = ({ children,key,endpoint,fetchTriggerData }) => {
     
     useEffect(() => {
         fetchData();
-    },[fetchData, fetchTriggerData])
+    }, [fetchData, fetchTriggerData])
+    
     
     return (
         <>

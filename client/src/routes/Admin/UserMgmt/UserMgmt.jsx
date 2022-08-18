@@ -46,21 +46,10 @@ const UserMgmt = () => {
        <div className='w-2/3 m-auto border-2 p-16 mt-10'>
       <h1 className='text-3xl'>User Management</h1>
       <form className="mt-5" onSubmit={handleSubmit}>
-        <div className='mb-5'>
-          <label htmlFor='user-name'>name</label>
-          <input id='user-name' value={userName} onChange={e => setUserName(e.target.value)} className="input-text" />
-        </div>
-        <div className='mb-5'>
-          <label htmlFor='user-email'>email</label>
-          <input id='user-email' value={userEmail} onChange={e => setUserEmail(e.target.value)} className="input-text" />
-        </div>
-        <div className='mb-5'>
-          <label htmlFor='role-name'>password</label>
-          <input id='role-name' value={userPassword} onChange={e => setUserPassword(e.target.value)} className="input-text" />
-        </div>
-
+        <FormInput label="name" value={userName} handleChange={(e)=>{setUserName(e.target.value)}} />
+        <FormInput label="email" value={userEmail} handleChange={(e)=>{setUserEmail(e.target.value)}} type="email" />
+        <FormInput label="password" value={userPassword} handleChange={(e)=>{setUserPassword(e.target.value)}} type="password" />
         <SelectDropDown selectedData={userRole} setSelectedData={setUserRole} selectOptions={roles} initialOption="Choose User Role here" />
-        
         <div className='text-right'>
           <button  className='border-2 p-2 mt-5' type='submit'>Create User</button>
         </div>

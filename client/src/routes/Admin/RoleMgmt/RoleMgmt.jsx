@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { SERVER_DOMAIN } from '../../../cons/Cons';
 import useFetch from '../../../hooks/useFetch';
+import FormInput from '../../../common/Form/FormInput';
 import MultipleSelectDropDown from '../../../common/Select/MultipleSelectDropDown';
 import ExpandableRow from '../../../common/Table/ExpandableRow';
 import RoleUpdateModal from './RoleUpdateModal';
@@ -35,7 +36,6 @@ const RoleMgmt = () => {
   }
 
   const handleDelete = async (name) => {
-    console.log("delete start")
     await axios.delete(`${SERVER_DOMAIN}/roles/${name}`);
     await fetchRoles();
   }
@@ -44,12 +44,9 @@ const RoleMgmt = () => {
   return (
     <>
       <div className='w-2/3 m-auto border-2 p-16 mt-10'>
-      <h1 className='text-3xl'>Role Management</h1>
+      <h1 className='text-3xl mb-5'>Role Management</h1>
       <form className="mt-5" onSubmit={handleSubmit}>
-        <div className='mb-5'>
-          <label htmlFor='role-name'>name</label>
-          <input id='role-name' value={roleName} onChange={e => setRoleName(e.target.value)} className="input-text" />
-        </div>
+          <FormInput label="name" value={roleName} handleChange={e => setRoleName(e.target.value)}  />
         <div>
           <MultipleSelectDropDown
             options={permissions}

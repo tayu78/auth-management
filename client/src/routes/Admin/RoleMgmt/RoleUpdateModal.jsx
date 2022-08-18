@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react';
 import axios from 'axios';
 import Modal from "../../../common/Modal";
+import FormInput from '../../../common/Form/FormInput';
 import MultipleSelectDropDown from '../../../common/Select/MultipleSelectDropDown';
 import { SERVER_DOMAIN } from '../../../cons/Cons';
+
 
 
 const RoleUpdateModal = ({ setIsModalOpen, permissions, updatingRole,fetchRoles }) => {
@@ -32,11 +34,8 @@ const RoleUpdateModal = ({ setIsModalOpen, permissions, updatingRole,fetchRoles 
   return (
       <Modal setIsOpen={setIsModalOpen}>
           <h1>Update Role</h1>
-          <form className="mt-5" onSubmit={handleSubmit}>
-        <div className='mb-5'>
-          <label htmlFor='role-name'>name</label>
-          <input id='role-name' value={roleName} onChange={e => setRoleName(e.target.value)} className="input-text" />
-        </div>
+        <form className="mt-5" onSubmit={handleSubmit}>
+        <FormInput label="name" value={roleName} handleChange={e => setRoleName(e.target.value)}  />
         <div>
           <MultipleSelectDropDown
             options={permissions}

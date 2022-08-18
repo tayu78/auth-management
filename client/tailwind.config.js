@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     fontSize: {
-      'icon': '300px',
+      'icon': '18rem',
       'xs': '.75rem',
       'sm': '.875rem',
       'base': '1rem',
@@ -27,6 +27,9 @@ module.exports = {
         'auto-fit': 'repeat(auto-fit, minmax(300px, 600px))',
         'auto-fill': 'repeat(auto-fill, minmax(300px, 600px))',
       },
+      transitionProperty: {
+        'input-label': "top,left,font-size"
+      }
     },
   },
   plugins: [],

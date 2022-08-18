@@ -15,8 +15,9 @@
 .menu-icon{
    @apply   m-auto text-icon block text-slate-400 !important
 }
-
-.input-text{
-   @apply border block
+.input-text:focus ~ label,
+.input-text:not(:placeholder-shown).input-text:not(:focus) ~ label {
+   @apply  -top-3 left-5  bg-white text-base
 }
+
 
