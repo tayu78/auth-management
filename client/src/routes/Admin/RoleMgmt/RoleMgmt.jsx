@@ -9,6 +9,7 @@ import FormInput from '../../../common/Form/FormInput';
 import MultipleSelectDropDown from '../../../common/Select/MultipleSelectDropDown';
 import ExpandableRow from '../../../common/Table/ExpandableRow';
 import RoleUpdateModal from './RoleUpdateModal';
+import PageContainer from '../../../common/PageContainer';
 
 
 
@@ -43,8 +44,7 @@ const RoleMgmt = () => {
   
   return (
     <>
-      <div className='w-2/3 m-auto border-2 p-16 mt-10'>
-      <h1 className='text-3xl mb-5'>Role Management</h1>
+      <PageContainer title="Role Management" >
       <form className="mt-5" onSubmit={handleSubmit}>
           <FormInput label="name" value={roleName} handleChange={e => setRoleName(e.target.value)}  />
         <div>
@@ -73,7 +73,7 @@ const RoleMgmt = () => {
               }) }
            </tbody>
          </table>
-      </div>
+      </PageContainer>
       {isModalOpen && <RoleUpdateModal setIsModalOpen={setIsModalOpen} permissions={permissions} updatingRole={updatingRole} fetchRoles={fetchRoles} />}
     </>
     

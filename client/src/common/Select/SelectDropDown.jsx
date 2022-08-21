@@ -16,7 +16,7 @@ const SelectDropDown = ({selectedData,setSelectedData,selectOptions,initialOptio
   }
   return (
     <div>
-    <div className='relative w-3/5  '> 
+    <div className='relative w-3/5 sm:w-4/5 '> 
       <p onClick={handleDropdownOpen} className='relative border p-2  rounded  appearance-none cursor-pointer' onChange={handleSelect}>
         {selectedData || initialOption}
         {isDropdownHidden ? <KeyboardArrowDownIcon class="absolute top-3 right-4 w-5 " /> : <KeyboardArrowRightIcon class="absolute top-3 right-4 w-5" />}

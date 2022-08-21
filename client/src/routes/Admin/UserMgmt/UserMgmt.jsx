@@ -8,6 +8,8 @@ import useFetch from '../../../hooks/useFetch';
 import FormInput from '../../../common/Form/FormInput';
 import SelectDropDown from "../../../common/Select/SelectDropDown";
 import UserUpdateModal from './UserUpdateModal';
+import PageContainer from '../../../common/PageContainer';
+
 
 
 
@@ -43,8 +45,7 @@ const UserMgmt = () => {
   
   return (
     <>
-       <div className='w-2/3 m-auto border-2 p-16 mt-10'>
-      <h1 className='text-3xl'>User Management</h1>
+      <PageContainer title="User Management">
       <form className="mt-5" onSubmit={handleSubmit}>
         <FormInput label="name" value={userName} handleChange={(e)=>{setUserName(e.target.value)}} />
         <FormInput label="email" value={userEmail} handleChange={(e)=>{setUserEmail(e.target.value)}} type="email" />
@@ -55,26 +56,29 @@ const UserMgmt = () => {
         </div>
       </form>
 
-      <table className='mt-5 w-full border-y-2'>
-        <thead className='border-y-2 text-left'>
-              <th>name</th>
-              <th>email</th>
-              <th>role</th>
-           </thead>
-           <tbody>
-            {users.map(user => {
-              return (
-                <tr key={user.id}  >
-                  <td >{user.name}</td>
-                  <td >{user.email}</td>
-                  <td >{user.role ? user.role.name : "" }</td>
-                  <td><EditIcon className="cursor-pointer" onClick={()=>handleEdit(user)} /><DeleteIcon onClick={() => handleDelete(user.email)} className="hover:bg-slate-300 " /></td>
-                </tr>
-              )
-            })}
-           </tbody>
-      </table>
+        <div className="table-container" > 
+          <table className='mt-5 w-full border-y-2 border-separate '>
+          <thead className='border-y-2 text-left'>
+                <th >name</th>
+                <th >email</th>
+                <th>role</th>
+            </thead>
+            <tbody >
+              {users.map(user => {
+                return (
+                  <tr key={user.id}  >
+                    <td >{user.name}</td>
+                    <td >{user.email}</td>
+                    <td >{user.role ? user.role.name : "" }</td>
+                    <td className="sm:sticky sm:right-0 sm:bg-white sm:border-l-2   "><EditIcon className="cursor-pointer" onClick={()=>handleEdit(user)} /><DeleteIcon onClick={() => handleDelete(user.email)} className="hover:bg-slate-300 before:border-l " /></td>
+                  </tr>
+                )
+              })}
+            </tbody>
+        </table>
       </div>
+      </PageContainer>
+     
       {
         isModalOpen &&  <UserUpdateModal setIsModalOpen={setIsModalOpen} updatingUser={updatingUser} roles={roles} fetchUsers={fetchUsers} />
       }

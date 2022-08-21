@@ -8,6 +8,7 @@ import useFetch from '../../../hooks/useFetch';
 import PermissionUpdateModal from './PermissionUpdateModal';
 import FormInput from '../../../common/Form/FormInput';
 import FormSubmitBtn from '../../../common/Form/FormSubmitBtn';
+import PageContainer from '../../../common/PageContainer';
 
 
 
@@ -42,8 +43,7 @@ const PermissionMgmt = () => {
    
   return (
     <>
-     <div className='w-2/3 m-auto border-2 p-16 mt-10'>
-       <h1 className='mb-5'>PermissionMgmt</h1>
+     <PageContainer title="Permission Management">
        <div>
         <form onSubmit={handleSubmit}>
             <FormInput  label="name" value={permissionName} handleChange={e => setPermissionName(e.target.value)} />
@@ -68,7 +68,7 @@ const PermissionMgmt = () => {
            </tbody>
          </table>
        </div>
-      </div>
+      </PageContainer>
       {
       isModalOpen && <PermissionUpdateModal setIsOpen={setIsModalOpen} updatingPermission={updatingPermission} fetchPermissions={fetchPermissions}  />
       }
