@@ -35,6 +35,9 @@ module.exports = {
       // => @media (max-width: 639px) { ... }
     },
     extend: {
+      flex: {
+        '2': '2 2 0%'
+      },
       gridTemplateColumns: {
         'auto-fit': 'repeat(auto-fit, minmax(300px, 500px))',
         'auto-fill': 'repeat(auto-fill, minmax(300px, 500px))',

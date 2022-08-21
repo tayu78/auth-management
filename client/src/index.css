@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body{
+   @apply h-screen bg-gray-100
+}
+
 @layer base{
    h1{
       @apply text-3xl;
@@ -12,9 +17,12 @@
 }
 
 .table-container{
-   @apply w-full overflow-scroll
+   @apply w-full sm:overflow-scroll 
 }
 
+.page-item{
+   @apply bg-white rounded  p-5 shadow-md
+}
 
 .menu-icon{
    @apply   m-auto text-icon block text-slate-400 !important

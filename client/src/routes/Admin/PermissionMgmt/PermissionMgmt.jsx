@@ -44,29 +44,35 @@ const PermissionMgmt = () => {
   return (
     <>
      <PageContainer title="Permission Management">
-       <div>
-        <form onSubmit={handleSubmit}>
-            <FormInput  label="name" value={permissionName} handleChange={e => setPermissionName(e.target.value)} />
-            <FormSubmitBtn  >Create Permission</FormSubmitBtn>
-         </form>
+        <div className="flex-1">
+          <div className='page-item'>
+            <form onSubmit={handleSubmit}>
+              <FormInput  label="name" value={permissionName} handleChange={e => setPermissionName(e.target.value)} />
+              <FormSubmitBtn  >Create Permission</FormSubmitBtn>
+             </form>
+          </div>
+       
        </div>
 
-       <div>
-         <table className='mt-5 w-full border-y-2'>
-           <thead className='border-y-2 text-left'>
-             <th className='w-4/5' >name</th>
-             <th ></th>
-           </thead>
-           <tbody>
-             {permissions.map((permission) =>{
-               return <tr key={permission.id}>
-                 <td>{permission.name}</td>
-                 <td className=' text-right pr-3'><EditIcon className="cursor-pointer" onClick={()=>handleEdit(permission)} /><DeleteIcon className="cursor-pointer" onClick={()=>handleDelete(permission.name)} /></td>
-               </tr>
-              }) }
-             
-           </tbody>
-         </table>
+        <div className='flex-2'>
+          <div className='page-item table-container'>
+              <table className='mt-5 w-full border-y-2'>
+              <thead className='border-y-2 text-left'>
+                <th className='w-4/5' >name</th>
+                <th ></th>
+              </thead>
+              <tbody>
+                {permissions.map((permission) =>{
+                  return <tr key={permission.id}>
+                    <td>{permission.name}</td>
+                    <td className=' text-right pr-3'><EditIcon className="cursor-pointer" onClick={()=>handleEdit(permission)} /><DeleteIcon className="cursor-pointer" onClick={()=>handleDelete(permission.name)} /></td>
+                  </tr>
+                  }) }
+                
+              </tbody>
+            </table>
+          </div>
+        
        </div>
       </PageContainer>
       {
