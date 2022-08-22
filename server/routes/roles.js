@@ -7,7 +7,6 @@ const { Role,Permission } = require('../models');
 router.post('/', async (req, res) => {
     const { name, selectedPermissions } = req.body;
     const ids = selectedPermissions.map(permission => permission.id );
-    
     try {
         const role = await Role.create({ name });
         const permissions = await Permission.findAll(
