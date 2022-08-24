@@ -45,7 +45,7 @@ const SignForm = ({ isLogin }) => {
   }
 
   return (
-    <div className='w-96 m-auto border-2 p-16 mt-10 shadow'>
+    <div className='w-96 m-auto border p-16 mt-10 shadow-md bg-white'>
       <h2 className='text-center text-xl mb-5'>{isLogin ? "Sign In" : "Sign Up"}</h2>
       {error && <FormError error={error} />}
       <form onSubmit={handleSubmit}>
