@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 
 module.exports = {
   development: {
@@ -6,11 +6,11 @@ module.exports = {
     password: "yuyadev",
     database: "authority",
     host: "127.0.0.1",
-    port: 5434, 
+    port: 5434,
     dialect: "postgres",
     define: {
-      timestamps: false
-    }
+      timestamps: false,
+    },
   },
   production: {
     username: process.env.DB_USERNAME,
@@ -22,15 +22,11 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     },
     define: {
-      timestamps: false
-    }
-  }
- 
-}
-
-
-
+      timestamps: false,
+    },
+  },
+};
