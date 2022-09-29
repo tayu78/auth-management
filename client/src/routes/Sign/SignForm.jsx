@@ -1,10 +1,10 @@
-import React, { useContext,useEffect,useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { SERVER_DOMAIN } from '../../cons/Cons';
-import FormError from '../../common/Form/FormError';
-import FormInput from '../../common/Form/FormInput';
-import { UserContext } from '../../contexts/UserContext';
+import { SERVER_DOMAIN } from "../../cons/Cons";
+import FormError from "../../common/Form/FormError";
+import FormInput from "../../common/Form/FormInput";
+import { UserContext } from "../../contexts/UserContext";
 
 const SignForm = ({ isLogin }) => {
   const [username, setUsername] = useState("");
@@ -12,65 +12,93 @@ const SignForm = ({ isLogin }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  const {setUser} = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const signIn = (user) => {
     setUser(user);
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   useEffect(() => {
     setUsername("");
     setPassword("");
     setEmail("");
     setError("");
-  },[isLogin])
+  }, [isLogin]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let userResult;
     if (isLogin) {
-      userResult = await axios.post(`${SERVER_DOMAIN}/users/signin`, { name: username, email, password });
+      userResult = await axios.post(`${SERVER_DOMAIN}/users/signin`, {
+        email,
+        password,
+      });
     } else {
-      userResult = await axios.post(`${SERVER_DOMAIN}/users/signup`, { name: username, email, password })
+      userResult = await axios.post(`${SERVER_DOMAIN}/users/signup`, {
+        name: username,
+        email,
+        password,
+      });
     }
-    
+
     if (userResult.data) {
-      signIn(userResult.data) // even after signup, we have to sign in
+      signIn(userResult.data); // even after signup, we have to sign in
     } else {
       setError("User not found. please try again");
     }
-  
-  }
+  };
 
   return (
-    <div className='w-96 m-auto border p-16 mt-10 shadow-md bg-white'>
-      <h2 className='text-center text-xl mb-5'>{isLogin ? "Sign In" : "Sign Up"}</h2>
+    <div className="w-96 m-auto border p-16 mt-10 shadow-md bg-white">
+      <h2 className="text-center text-xl mb-8">
+        {isLogin ? "Sign In" : "Sign Up"}
+      </h2>
       {error && <FormError error={error} />}
       <form onSubmit={handleSubmit}>
-        <div className='flex flex-col items-center  '>
-          <FormInput label="username" value={username} handleChange={e=>setUsername(e.target.value)} />
-          <FormInput label="email" type="email" value={email} handleChange={e=>setEmail(e.target.value)} />
-          <FormInput label="password" type="password" value={password} handleChange={e=>setPassword(e.target.value)} />
-          <button type="submit" className='border-2 bg-slate-500 text-white w-20 p-2 m-5' >{ isLogin? "Sign In" : "Sign Up"}</button>
-        </div> 
+        <div className="flex flex-col items-center  ">
+          {!isLogin && (
+            <FormInput
+              label="username"
+              value={username}
+              handleChange={(e) => setUsername(e.target.value)}
+            />
+          )}
+
+          <FormInput
+            label="email"
+            type="email"
+            value={email}
+            handleChange={(e) => setEmail(e.target.value)}
+          />
+          <FormInput
+            label="password"
+            type="password"
+            value={password}
+            handleChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="border-2 bg-slate-500 text-white w-20 p-2 m-5"
+          >
+            {isLogin ? "Sign In" : "Sign Up"}
+          </button>
+        </div>
       </form>
-      {isLogin ?
-        <div className='text-center'>
+      {isLogin ? (
+        <div className="text-center">
           <p>Not have an account? </p>
           <Link to="/signup">here to Sign Up</Link>
         </div>
-        :
-        <div className='text-center'>
-          <p>Already have an account ?  </p>
+      ) : (
+        <div className="text-center">
+          <p>Already have an account ? </p>
           <Link to="/signin">here to Sign In</Link>
         </div>
-      }
-       
+      )}
     </div>
+  );
+};
 
-  )
-}
-
-export default SignForm
+export default SignForm;
