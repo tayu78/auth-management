@@ -23,6 +23,11 @@ router.get("/role/:email", async (req, res) => {
         email,
       },
     });
+    if (!user) {
+      return res.status(404).json({
+        message: "no such user.",
+      });
+    }
     const userRole = await user.getRole();
     const userRoleName = userRole?.dataValues?.name;
 
@@ -44,7 +49,7 @@ router.post("/", async (req, res) => {
     });
     await user.setRole(role);
 
-    return res.send(`user ${name} created successfully!!!!`);
+    return res.status(201).send(`user ${name} created successfully!!!!`);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -55,7 +60,7 @@ router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const user = await User.create({ name, email, password });
-    return res.json(user);
+    return res.status(201).json(user);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -71,7 +76,14 @@ router.post("/signin", async (req, res) => {
         password,
       },
     });
-    return res.json(user);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "no such user",
+      });
+    }
+
+    return res.status(200).json(user);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -82,11 +94,21 @@ router.post("/signin", async (req, res) => {
 router.delete("/:email", async (req, res) => {
   const { email } = req.params;
   try {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      return res.status(404).json({
+        message: "no such user",
+      });
+    }
     await User.destroy({
       where: { email },
     });
 
-    res.send(`user ${email} is deleted successfully!!`);
+    res.status(200).send(`user ${email} is deleted successfully!!`);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -102,6 +124,18 @@ router.put("/:id", async (req, res) => {
         name: userRole,
       },
     });
+
+    const user = await User.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      return res.status(404).json({
+        message: "no such user",
+      });
+    }
+
     await User.update(
       { name, email, roleId: role.id },
       {
