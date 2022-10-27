@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER_DOMAIN } from "../../cons/Cons";
-import FormError from "../../common/Form/FormError";
 import FormInput from "../../common/Form/FormInput";
 import { UserContext } from "../../contexts/UserContext";
+import ShowMsg from "../../common/ShowMsg";
 
 const SignForm = ({ isLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [showMsg, setShowMsg] = useState(false);
 
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -30,23 +31,26 @@ const SignForm = ({ isLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let userResult;
-    if (isLogin) {
-      userResult = await axios.post(`${SERVER_DOMAIN}/users/signin`, {
-        email,
-        password,
-      });
-    } else {
-      userResult = await axios.post(`${SERVER_DOMAIN}/users/signup`, {
-        name: username,
-        email,
-        password,
-      });
-    }
+    try {
+      if (isLogin) {
+        userResult = await axios.post(`${SERVER_DOMAIN}/users/signin`, {
+          email,
+          password,
+        });
+      } else {
+        userResult = await axios.post(`${SERVER_DOMAIN}/users/signup`, {
+          name: username,
+          email,
+          password,
+        });
+      }
 
-    if (userResult.data) {
-      signIn(userResult.data); // even after signup, we have to sign in
-    } else {
-      setError("User not found. please try again");
+      if (userResult.data) {
+        signIn(userResult.data);
+      }
+    } catch (e) {
+      setShowMsg(true);
+      setError(e.response.data.message);
     }
   };
 
@@ -55,7 +59,10 @@ const SignForm = ({ isLogin }) => {
       <h2 className="text-center text-xl mb-8">
         {isLogin ? "Sign In" : "Sign Up"}
       </h2>
-      {error && <FormError error={error} />}
+
+      {showMsg && (
+        <ShowMsg status={"error"} msg={error} setShowMsg={setShowMsg} />
+      )}
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col items-center  ">
           {!isLogin && (

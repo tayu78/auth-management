@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     return res.json(users);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ msg: "Something went wrong." });
   }
 });
 
@@ -34,7 +34,7 @@ router.get("/role/:email", async (req, res) => {
     return res.json(userRoleName);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 
@@ -52,24 +52,43 @@ router.post("/", async (req, res) => {
     return res.status(201).send(`user ${name} created successfully!!!!`);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 
 router.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Please fill the all input" });
+    }
+    const isExistingUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (isExistingUser) {
+      return res
+        .status(400)
+        .json({ message: "User with requested email is already exist." });
+    }
+
     const user = await User.create({ name, email, password });
+
     return res.status(201).json(user);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
   try {
+    if (!email || !password) {
+      return res.status(400).json({ message: "Please fill the all input" });
+    }
     const user = await User.findOne({
       where: {
         email,
@@ -79,14 +98,14 @@ router.post("/signin", async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: "no such user",
+        message: "No such user.",
       });
     }
 
     return res.status(200).json(user);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 
@@ -101,7 +120,7 @@ router.delete("/:email", async (req, res) => {
     });
     if (!user) {
       return res.status(404).json({
-        message: "no such user",
+        message: "No such user.",
       });
     }
     await User.destroy({
@@ -111,7 +130,7 @@ router.delete("/:email", async (req, res) => {
     res.status(200).send(`user ${email} is deleted successfully!!`);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 
@@ -132,7 +151,7 @@ router.put("/:id", async (req, res) => {
     });
     if (!user) {
       return res.status(404).json({
-        message: "no such user",
+        message: "No such user.",
       });
     }
 
@@ -148,7 +167,7 @@ router.put("/:id", async (req, res) => {
     return res.status(200).send(`user updated successfully!!!`);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 

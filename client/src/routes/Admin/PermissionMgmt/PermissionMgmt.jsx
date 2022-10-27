@@ -19,17 +19,13 @@ const PermissionMgmt = () => {
   const [status, setStatus] = useState("");
   const [msg, setMsg] = useState("");
 
-  useEffect(() => {
-    console.log("showMessage", showMsg);
-  }, [showMsg]);
-
   const { data: permissions, fetchData: fetchPermissions } =
     useFetch("permissions");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!permissionName) {
-      setMsg("plese fill permission name");
+      setMsg("Plese fill permission name");
       setStatus("error");
       return;
     } //TODO: display error component
@@ -38,11 +34,11 @@ const PermissionMgmt = () => {
       await axios.post(`${SERVER_DOMAIN}/permissions`, {
         name: permissionName,
       });
-      setMsg("new permission is successfully created");
+      setMsg("New permission is successfully created");
       setStatus("success");
       await fetchPermissions();
     } catch (err) {
-      setMsg("something went wrong while creating new permission");
+      setMsg("Something went wrong while creating new permission");
       setStatus("error");
     } finally {
       setShowMsg(true);
@@ -88,7 +84,12 @@ const PermissionMgmt = () => {
         <div className="flex-2">
           <div className="page-item table-container">
             {showMsg && (
-              <ShowMsg status={status} msg={msg} setShowMsg={setShowMsg} />
+              <ShowMsg
+                status={status}
+                msg={msg}
+                setShowMsg={setShowMsg}
+                absolute
+              />
             )}
             <table className="mt-5 w-full border-y-2">
               <thead className="border-y-2 text-left">

@@ -1,7 +1,7 @@
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useEffect } from "react";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-const ShowMsg = ({ status, msg, setShowMsg }) => {
+const ShowMsg = ({ status, msg, setShowMsg, absolute }) => {
   useEffect(() => {
     const st = setTimeout(() => {
       setShowMsg(false);
@@ -11,9 +11,9 @@ const ShowMsg = ({ status, msg, setShowMsg }) => {
 
   return (
     <div
-      className={` p-3 rounded flex absolute right-0 top-20 ${
-        status === "error" ? "bg-rose-100" : "bg-lime-100"
-      }`}
+      className={` p-3 rounded flex mb-5 ${
+        absolute && "absolute"
+      } right-0 top-20 ${status === "error" ? "bg-rose-100" : "bg-lime-100"}`}
     >
       {status === "error" ? (
         <ErrorOutlineIcon className="text-rose-500" />
