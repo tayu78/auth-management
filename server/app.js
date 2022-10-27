@@ -16,7 +16,7 @@ app.use("/roles", roleRoute);
 app.use("/permissions", permissionRoute);
 
 app.listen({ port: PORT }, async () => {
-  console.log("Server up on http://localhost:5000");
+  console.log("Server up on http://localhost:5000!");
   await sequelize.sync({ force: false });
   // await sequelize.authenticate();
   console.log("Database connected!");
