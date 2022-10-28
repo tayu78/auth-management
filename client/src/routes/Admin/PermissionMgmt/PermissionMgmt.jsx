@@ -38,7 +38,7 @@ const PermissionMgmt = () => {
       setStatus("success");
       await fetchPermissions();
     } catch (err) {
-      setMsg("Something went wrong while creating new permission");
+      setMsg(err.response.data.message);
       setStatus("error");
     } finally {
       setShowMsg(true);
