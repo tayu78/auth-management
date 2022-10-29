@@ -12,7 +12,11 @@ router.post("/", async (req, res) => {
         .json({ message: "Permission with provided name already exists." });
     }
     const permission = await Permission.create({ name });
-    return res.status(201).json(permission);
+
+    return res.status(201).json({
+      message: "New permission is successfully created",
+      permission,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -48,7 +52,9 @@ router.put("/:id", async (req, res) => {
       }
     );
 
-    return res.status(200).send("user updated successfully !!!");
+    return res.status(200).json({
+      message: "Permission updated successfully !!!",
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -58,7 +64,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:name", async (req, res) => {
   const { name } = req.params;
   try {
-    const permission = await Permission.findOne({ where: name });
+    const permission = await Permission.findOne({ where: { name } });
     if (!permission) {
       return res
         .status(404)
@@ -69,7 +75,9 @@ router.delete("/:name", async (req, res) => {
         name,
       },
     });
-    return res.send(`permission ${name} is deleted successfully!! `);
+    return res.json({
+      message: `Permission ${name} is deleted successfully!! `,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);

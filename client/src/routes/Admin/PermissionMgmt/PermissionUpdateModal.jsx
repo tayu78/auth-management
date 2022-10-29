@@ -1,20 +1,27 @@
 import React, { useState } from "react";
-import axios from "axios";
-
 import { SERVER_DOMAIN } from "../../../cons/Cons";
 import Modal from "../../../common/Modal";
 import FormInput from "../../../common/Form/FormInput";
 import FormSubmitBtn from "../../../common/Form/FormSubmitBtn";
 
-const UpdateModal = ({ setIsOpen, updatingPermission, fetchPermissions }) => {
+const UpdateModal = ({
+  setIsOpen,
+  updatingPermission,
+  fetchPermissions,
+  requestAndShowMsg,
+}) => {
   const [permissionName, setPermissionName] = useState(updatingPermission.name);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`${SERVER_DOMAIN}/permissions/${updatingPermission.id}`, {
-      name: permissionName,
-    });
-    await fetchPermissions();
+    const requestOption = {
+      method: "put",
+      url: `${SERVER_DOMAIN}/permissions/${updatingPermission.id}`,
+      data: {
+        name: permissionName,
+      },
+    };
+    requestAndShowMsg(requestOption, fetchPermissions);
     setIsOpen(false);
   };
 

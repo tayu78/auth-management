@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { SERVER_DOMAIN } from "../../../cons/Cons";
+
 import useFetch from "../../../hooks/useFetch";
 import PermissionUpdateModal from "./PermissionUpdateModal";
 import FormInput from "../../../common/Form/FormInput";
 import FormSubmitBtn from "../../../common/Form/FormSubmitBtn";
 import PageContainer from "../../../common/PageContainer";
 import ShowMsg from "../../../common/ShowMsg";
+import useRequestAndShowMsg from "../../../hooks/useRequestAndShowMsg";
 
 const PermissionMgmt = () => {
   const [permissionName, setPermissionName] = useState("");
   const [updatingPermission, setUpdatingPermission] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showMsg, setShowMsg] = useState(false);
-  const [status, setStatus] = useState("");
-  const [msg, setMsg] = useState("");
+  const {
+    status,
+    msg,
+    showMsg,
+    setMsg,
+    setStatus,
+    setShowMsg,
+    requestAndShowMsg,
+  } = useRequestAndShowMsg();
 
   const { data: permissions, fetchData: fetchPermissions } =
     useFetch("permissions");
@@ -28,22 +35,16 @@ const PermissionMgmt = () => {
       setMsg("Plese fill permission name");
       setStatus("error");
       return;
-    } //TODO: display error component
-
-    try {
-      await axios.post(`${SERVER_DOMAIN}/permissions`, {
-        name: permissionName,
-      });
-      setMsg("New permission is successfully created");
-      setStatus("success");
-      await fetchPermissions();
-    } catch (err) {
-      setMsg(err.response.data.message);
-      setStatus("error");
-    } finally {
-      setShowMsg(true);
-      setPermissionName("");
     }
+    const requestOption = {
+      method: "post",
+      url: `${SERVER_DOMAIN}/permissions`,
+      data: {
+        name: permissionName,
+      },
+    };
+    await requestAndShowMsg(requestOption, fetchPermissions);
+    setPermissionName("");
   };
 
   const handleEdit = (permission) => {
@@ -52,17 +53,11 @@ const PermissionMgmt = () => {
   };
 
   const handleDelete = async (name) => {
-    try {
-      await axios.delete(`${SERVER_DOMAIN}/permissions/${name}`);
-      await fetchPermissions();
-      setStatus("success");
-      setMsg("successfully deleted!");
-    } catch (err) {
-      setStatus("error");
-      setMsg("something went wrong during deleting");
-    } finally {
-      setShowMsg(true);
-    }
+    const requestOption = {
+      method: "delete",
+      url: `${SERVER_DOMAIN}/permissions/${name}`,
+    };
+    await requestAndShowMsg(requestOption, fetchPermissions);
   };
 
   return (
@@ -124,6 +119,7 @@ const PermissionMgmt = () => {
           setIsOpen={setIsModalOpen}
           updatingPermission={updatingPermission}
           fetchPermissions={fetchPermissions}
+          requestAndShowMsg={requestAndShowMsg}
         />
       )}
     </>
