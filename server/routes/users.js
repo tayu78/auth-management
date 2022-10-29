@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User, Role } = require("../models");
+const { unsubscribe } = require("./permissions");
 
 router.get("/", async (req, res) => {
   try {
@@ -10,7 +11,7 @@ router.get("/", async (req, res) => {
     return res.json(users);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ msg: "Something went wrong." });
+    return res.status(500).json({ message: "Something went wrong." });
   }
 });
 
@@ -25,7 +26,7 @@ router.get("/role/:email", async (req, res) => {
     });
     if (!user) {
       return res.status(404).json({
-        message: "no such user.",
+        message: "No such user.",
       });
     }
     const userRole = await user.getRole();
@@ -41,6 +42,21 @@ router.get("/role/:email", async (req, res) => {
 router.post("/", async (req, res) => {
   const { name, email, password, userRole } = req.body;
   try {
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "Please fill the all input.",
+      });
+    }
+    const isExistingUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (isExistingUser) {
+      return res
+        .status(400)
+        .json({ message: "User with provided email already exists." });
+    }
     const user = await User.create({ name, email, password });
     const role = await Role.findOne({
       where: {
@@ -49,7 +65,10 @@ router.post("/", async (req, res) => {
     });
     await user.setRole(role);
 
-    return res.status(201).send(`user ${name} created successfully!!!!`);
+    return res.status(201).json({
+      message: `User created successfully!`,
+      user,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Something went wrong." });
@@ -109,7 +128,6 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-// TODO recieve not email  but id
 router.delete("/:email", async (req, res) => {
   const { email } = req.params;
   try {
@@ -127,7 +145,9 @@ router.delete("/:email", async (req, res) => {
       where: { email },
     });
 
-    res.status(200).send(`user ${email} is deleted successfully!!`);
+    res
+      .status(200)
+      .json({ message: `User ${email} is deleted successfully!!` });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Something went wrong." });
@@ -155,16 +175,34 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    await User.update(
-      { name, email, roleId: role.id },
-      {
-        where: {
-          id,
-        },
+    if (email) {
+      const isExistingUser = await User.findOne({ where: { email } });
+      if (isExistingUser) {
+        return res.status(400).json({
+          message: "User with provided email already exists.",
+        });
       }
-    );
 
-    return res.status(200).send(`user updated successfully!!!`);
+      await User.update(
+        { name, email, roleId: role.id },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+    } else {
+      await User.update(
+        { name, roleId: role.id },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+    }
+
+    return res.status(200).json({ message: `User updated successfully!` });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Something went wrong." });

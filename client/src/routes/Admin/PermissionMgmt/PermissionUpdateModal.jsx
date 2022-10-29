@@ -14,14 +14,17 @@ const UpdateModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const requestOption = {
-      method: "put",
-      url: `${SERVER_DOMAIN}/permissions/${updatingPermission.id}`,
-      data: {
-        name: permissionName,
-      },
-    };
-    requestAndShowMsg(requestOption, fetchPermissions);
+    if (updatingPermission.name !== permissionName) {
+      const requestOption = {
+        method: "put",
+        url: `${SERVER_DOMAIN}/permissions/${updatingPermission.id}`,
+        data: {
+          name: permissionName,
+        },
+      };
+      requestAndShowMsg(requestOption, fetchPermissions);
+    }
+
     setIsOpen(false);
   };
 

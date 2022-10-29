@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { SERVER_DOMAIN } from "../../../cons/Cons";
 import useFetch from "../../../hooks/useFetch";
+import useRequestAndShowMsg from "../../../hooks/useRequestAndShowMsg";
 import FormInput from "../../../common/Form/FormInput";
 import MultipleSelectDropDown from "../../../common/Select/MultipleSelectDropDown";
 import ExpandableRow from "../../../common/Table/ExpandableRow";
 import RoleUpdateModal from "./RoleUpdateModal";
 import PageContainer from "../../../common/PageContainer";
+import ShowMsg from "../../../common/ShowMsg";
 
 const RoleMgmt = () => {
   const [roleName, setRoleName] = useState("");
@@ -20,16 +21,35 @@ const RoleMgmt = () => {
   const { data: permissions } = useFetch("permissions");
   const { data: roles, fetchData: fetchRoles } = useFetch("roles");
 
+  const {
+    status,
+    msg,
+    showMsg,
+    setMsg,
+    setStatus,
+    setShowMsg,
+    requestAndShowMsg,
+  } = useRequestAndShowMsg();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!roleName) {
+      setMsg("Plese fill role name");
+      setStatus("error");
       return;
-    } //TODO: display error component
-    await axios.post(`${SERVER_DOMAIN}/roles`, {
-      name: roleName,
-      selectedPermissions,
-    });
-    await fetchRoles();
+    }
+
+    const requestOption = {
+      method: "post",
+      url: `${SERVER_DOMAIN}/roles`,
+      data: {
+        name: roleName,
+        selectedPermissions,
+      },
+    };
+    await requestAndShowMsg(requestOption, fetchRoles);
+    setRoleName("");
+    setSelectedPermissions(null);
   };
 
   const handleEdit = (role) => {
@@ -38,8 +58,11 @@ const RoleMgmt = () => {
   };
 
   const handleDelete = async (name) => {
-    await axios.delete(`${SERVER_DOMAIN}/roles/${name}`);
-    await fetchRoles();
+    const requestOption = {
+      method: "delete",
+      url: `${SERVER_DOMAIN}/roles/${name}`,
+    };
+    await requestAndShowMsg(requestOption, fetchRoles);
   };
 
   return (
@@ -71,6 +94,14 @@ const RoleMgmt = () => {
 
         <div className="flex-2">
           <div className="page-item table-container">
+            {showMsg && (
+              <ShowMsg
+                status={status}
+                msg={msg}
+                setShowMsg={setShowMsg}
+                absolute
+              />
+            )}
             <table className="mt-5 w-full border-y-2">
               <thead className="border-y-2 text-left">
                 <th>name</th>
@@ -106,6 +137,7 @@ const RoleMgmt = () => {
           permissions={permissions}
           updatingRole={updatingRole}
           fetchRoles={fetchRoles}
+          requestAndShowMsg={requestAndShowMsg}
         />
       )}
     </>

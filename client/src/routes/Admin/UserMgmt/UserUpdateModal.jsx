@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import Modal from "../../../common/Modal";
 import FormInput from "../../../common/Form/FormInput";
 import FormSubmitBtn from "../../../common/Form/FormSubmitBtn";
@@ -11,6 +10,7 @@ const UserUpdateModal = ({
   updatingUser,
   roles,
   fetchUsers,
+  requestAndShowMsg,
 }) => {
   const [username, setUsername] = useState(updatingUser.name);
   const [email, setEmail] = useState(updatingUser.email);
@@ -18,12 +18,19 @@ const UserUpdateModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`${SERVER_DOMAIN}/users/${updatingUser.id}`, {
-      name: username,
-      email,
-      userRole,
-    });
-    await fetchUsers();
+
+    const data =
+      updatingUser.email === email
+        ? { name: username, userRole }
+        : { name: username, email, userRole };
+
+    const requestOption = {
+      method: "put",
+      url: `${SERVER_DOMAIN}/users/${updatingUser.id}`,
+      data,
+    };
+    requestAndShowMsg(requestOption, fetchUsers);
+
     setIsModalOpen(false);
   };
 

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { SERVER_DOMAIN } from "../../../cons/Cons";
 import useFetch from "../../../hooks/useFetch";
+import useRequestAndShowMsg from "../../../hooks/useRequestAndShowMsg";
 import FormInput from "../../../common/Form/FormInput";
 import SelectDropDown from "../../../common/Select/SelectDropDown";
 import UserUpdateModal from "./UserUpdateModal";
 import PageContainer from "../../../common/PageContainer";
+import ShowMsg from "../../../common/ShowMsg";
 
 const UserMgmt = () => {
   const [userName, setUserName] = useState("");
@@ -17,6 +18,9 @@ const UserMgmt = () => {
   const [userRole, setUserRole] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatingUser, setUpdatingUser] = useState({});
+
+  const { status, msg, showMsg, setShowMsg, requestAndShowMsg } =
+    useRequestAndShowMsg();
 
   const { data: users, fetchData: fetchUsers } = useFetch("users");
   const { data: roles } = useFetch("roles");
@@ -27,19 +31,32 @@ const UserMgmt = () => {
   };
 
   const handleDelete = async (email) => {
-    await axios.delete(`${SERVER_DOMAIN}/users/${email}`);
-    await fetchUsers();
+    const requestOption = {
+      method: "delete",
+      url: `${SERVER_DOMAIN}/users/${email}`,
+    };
+    await requestAndShowMsg(requestOption, fetchUsers);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`${SERVER_DOMAIN}/users`, {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      userRole,
-    });
-    await fetchUsers();
+    const requestOption = {
+      method: "post",
+      url: `${SERVER_DOMAIN}/users`,
+      data: {
+        name: userName,
+        email: userEmail,
+        password: userPassword,
+        userRole,
+      },
+    };
+    await requestAndShowMsg(requestOption, fetchUsers);
+    if (status === "success") {
+      setUserName("");
+      setUserEmail("");
+      setUserPassword("");
+      setUserRole("");
+    }
   };
 
   return (
@@ -88,6 +105,14 @@ const UserMgmt = () => {
 
         <div className="flex-2">
           <div className="table-container page-item ">
+            {showMsg && (
+              <ShowMsg
+                status={status}
+                msg={msg}
+                setShowMsg={setShowMsg}
+                absolute
+              />
+            )}
             <table className="mt-5 w-full border-y-2 border-separate ">
               <thead className="border-y-2 text-left">
                 <th>name</th>
@@ -126,6 +151,7 @@ const UserMgmt = () => {
           updatingUser={updatingUser}
           roles={roles}
           fetchUsers={fetchUsers}
+          requestAndShowMsg={requestAndShowMsg}
         />
       )}
     </>

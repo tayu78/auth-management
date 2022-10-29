@@ -3,7 +3,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { SERVER_DOMAIN } from "../../../cons/Cons";
-
 import useFetch from "../../../hooks/useFetch";
 import PermissionUpdateModal from "./PermissionUpdateModal";
 import FormInput from "../../../common/Form/FormInput";

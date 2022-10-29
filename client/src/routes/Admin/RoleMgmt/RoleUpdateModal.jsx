@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import axios from "axios";
 import Modal from "../../../common/Modal";
 import FormInput from "../../../common/Form/FormInput";
 import MultipleSelectDropDown from "../../../common/Select/MultipleSelectDropDown";
@@ -10,6 +9,7 @@ const RoleUpdateModal = ({
   permissions,
   updatingRole,
   fetchRoles,
+  requestAndShowMsg,
 }) => {
   const [roleName, setRoleName] = useState(updatingRole.name);
   const [selectedPermissions, setSelectedPermissions] = useState(
@@ -27,12 +27,17 @@ const RoleUpdateModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`${SERVER_DOMAIN}/roles/${updatingRole.id}`, {
-      name: roleName,
-      selectedPermissions,
-    });
-    await fetchRoles();
+    const data =
+      updatingRole.name === roleName
+        ? { selectedPermissions }
+        : { name: roleName, selectedPermissions };
 
+    const requestOption = {
+      method: "put",
+      url: `${SERVER_DOMAIN}/roles/${updatingRole.id}`,
+      data,
+    };
+    requestAndShowMsg(requestOption, fetchRoles);
     setIsModalOpen(false);
   };
 

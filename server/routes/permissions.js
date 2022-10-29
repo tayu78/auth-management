@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
     return res.json(permissions);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
@@ -57,7 +57,7 @@ router.put("/:id", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
@@ -80,7 +80,7 @@ router.delete("/:name", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
