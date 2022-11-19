@@ -18,7 +18,7 @@ const SignForm = ({ isLogin }) => {
 
   const signIn = (user) => {
     setUser(user);
-    navigate("/");
+    navigate("/home");
   };
 
   useEffect(() => {

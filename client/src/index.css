@@ -4,7 +4,8 @@
 
 
 body{
-   @apply h-screen bg-gray-100
+   @apply h-screen
+    /* bg-gray-100 */
 }
 
 @layer base{
@@ -32,4 +33,16 @@ body{
    @apply  -top-3 left-5  bg-white text-base
 }
 
+.font-blue-linear {
+   background-color: blue;
+   background: linear-gradient(89.75deg, #425EEE 0%, #6F80D8 49.97%, #081553 98.92%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+   text-fill-color: transparent;   
+}
 
+
+.bg-blue-linear{
+   background: linear-gradient(112.87deg, #FFFFFF 0%, rgba(173, 186, 255, 0.552083) 55.73%, rgba(37, 68, 231, 0) 100%);
+}
