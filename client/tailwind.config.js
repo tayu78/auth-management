@@ -12,8 +12,11 @@ module.exports = {
       "2xl": "1.5rem",
       "3xl": "1.875rem",
       "4xl": "2rem",
+      "4hxl": "2.5rem",
       "5xl": "3rem",
+      "5hxl": "3.5rem",
       "6xl": "4rem",
+      "6hxl": "4.5rem",
       "7xl": "5rem",
     },
     screens: {
@@ -23,11 +26,11 @@ module.exports = {
       xl: { max: "1279px" },
       // => @media (max-width: 1279px) { ... }
 
-      lg: { max: "1023px" },
-      // => @media (max-width: 1023px) { ... }
+      lg: { max: "1024px" },
+      // => @media (max-width: 1024px) { ... }
 
-      md: { max: "767px" },
-      // => @media (max-width: 767px) { ... }
+      md: { max: "768px" },
+      // => @media (max-width: 768px) { ... }
 
       sm: { max: "639px" },
       // => @media (max-width: 639px) { ... }
@@ -46,6 +49,16 @@ module.exports = {
       },
       transitionProperty: {
         "input-label": "top,left,font-size",
+      },
+      translate: {
+        "1/5": "20%",
+      },
+      inset: {
+        "1/5": "20%",
+      },
+      width: {
+        88: "22rem",
+        "2/5": "40%",
       },
     },
   },
