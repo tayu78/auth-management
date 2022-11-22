@@ -56,9 +56,9 @@ const SignForm = ({ isLogin }) => {
   };
 
   return (
-    <div className="w-screen h-screen bg-blue-linear  flex items-center justify-around md:flex-col md:justify-center md:gap-12">
+    <div className="w-screen h-screen bg-blue-linear  flex items-center justify-around md:flex-col md:justify-center md:gap-12 md:pt-12">
       <Logo />
-      <p className="font-blue-linear  w-2/5 md:w-full text-5hxl  lg:text-4hxl md:text-4hxl font-bold text-center md:mt-12 ">
+      <p className="font-blue-linear  w-2/5 md:w-full text-5hxl  lg:text-4hxl md:text-4hxl font-bold text-center  ">
         Welcome {isLogin && "back"} to KENGENKANRI!!
       </p>
       <div
