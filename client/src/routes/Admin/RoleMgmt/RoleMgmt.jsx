@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -20,7 +20,7 @@ const RoleMgmt = () => {
 
   const { data: permissions } = useFetch("permissions");
   const { data: roles, fetchData: fetchRoles } = useFetch("roles");
-
+  const [selectInputValue, setSelectInputValue] = useState(null);
   const {
     status,
     msg,
@@ -49,7 +49,8 @@ const RoleMgmt = () => {
     };
     await requestAndShowMsg(requestOption, fetchRoles);
     setRoleName("");
-    setSelectedPermissions(null);
+    setSelectedPermissions([]);
+    setSelectInputValue(null);
   };
 
   const handleEdit = (role) => {
@@ -81,6 +82,8 @@ const RoleMgmt = () => {
                   options={permissions}
                   keyName="name"
                   setSelectedOptions={setSelectedPermissions}
+                  value={selectInputValue}
+                  setValue={setSelectInputValue}
                 />
               </div>
               <div className="text-right">
