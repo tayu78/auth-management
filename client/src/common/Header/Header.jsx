@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <div className="flex items-center justify-between  bg-slate-800 h-16  text-white px-3 fixed top-0 left-0 w-full z-50 ">
-      <Link className="font-bold" to={"/"}>
+      <Link className="font-bold" to={"/home"}>
         KENGENKANRI
       </Link>
       {user && (
@@ -29,10 +29,10 @@ const Header = () => {
               isActive ? "active" : ""
             } flex items-center justify-around w-1/3"`}
           >
-            <Link onClick={handleIsActive} to="/">
+            <Link onClick={handleIsActive} to="/home" relative="/">
               Home
             </Link>
-            <Link onClick={handleIsActive} to="userManagement">
+            <Link onClick={handleIsActive} to="/userManagement">
               User
             </Link>
             <Link onClick={handleIsActive} to="roleManagement">

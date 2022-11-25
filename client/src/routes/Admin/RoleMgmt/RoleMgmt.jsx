@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-
+import React, { useState, useReducer, useEffect, useCallback } from "react";
 import { SERVER_DOMAIN } from "../../../cons/Cons";
+import reducer from "../../../utils/reducer";
 import useFetch from "../../../hooks/useFetch";
 import useRequestAndShowMsg from "../../../hooks/useRequestAndShowMsg";
-import FormInput from "../../../common/Form/FormInput";
+import Form from "../../../common/Form";
+import Table from "../../../common/Table";
 import MultipleSelectDropDown from "../../../common/Select/MultipleSelectDropDown";
 import ExpandableRow from "../../../common/Table/ExpandableRow";
 import RoleUpdateModal from "./RoleUpdateModal";
@@ -13,7 +12,10 @@ import PageContainer from "../../../common/PageContainer";
 import ShowMsg from "../../../common/ShowMsg";
 
 const RoleMgmt = () => {
-  const [roleName, setRoleName] = useState("");
+  // const [roleName, setRoleName] = useState("");
+  const [formData, dispatch] = useReducer(reducer, {
+    name: "",
+  });
   const [updatingRole, setUpdatingRole] = useState({});
   const [selectedPermissions, setSelectedPermissions] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +35,7 @@ const RoleMgmt = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!roleName) {
+    if (!formData.name) {
       setMsg("Plese fill role name");
       setStatus("error");
       return;
@@ -43,12 +45,19 @@ const RoleMgmt = () => {
       method: "post",
       url: `${SERVER_DOMAIN}/roles`,
       data: {
-        name: roleName,
+        name: formData.name,
         selectedPermissions,
       },
     };
     await requestAndShowMsg(requestOption, fetchRoles);
-    setRoleName("");
+    // setRoleName("");
+    dispatch({
+      type: "UPDATE_DATA",
+      payload: {
+        data: "",
+        key: "name",
+      },
+    });
     setSelectedPermissions(null);
   };
 
@@ -65,30 +74,33 @@ const RoleMgmt = () => {
     await requestAndShowMsg(requestOption, fetchRoles);
   };
 
+  const rowPropsArray = roles.map((role) => {
+    return {
+      key: role.id,
+      endpoint: `roles/${role.name}`,
+      fetchTriggerData: role,
+    };
+  });
+
   return (
     <>
       <PageContainer title="Role Management">
         <div className=" flex-1">
           <div className="page-item">
-            <form className="mt-5" onSubmit={handleSubmit}>
-              <FormInput
-                label="name"
-                value={roleName}
-                handleChange={(e) => setRoleName(e.target.value)}
-              />
-              <div>
-                <MultipleSelectDropDown
-                  options={permissions}
-                  keyName="name"
-                  setSelectedOptions={setSelectedPermissions}
-                />
-              </div>
-              <div className="text-right">
-                <button className="border-2 p-2 mt-5" type="submit">
-                  Create Role
-                </button>
-              </div>
-            </form>
+            <Form
+              handleSubmit={handleSubmit}
+              datas={formData}
+              dispatch={dispatch}
+              Select={useCallback(() => {
+                return (
+                  <MultipleSelectDropDown
+                    options={permissions}
+                    keyName="name"
+                    setSelectedOptions={setSelectedPermissions}
+                  />
+                );
+              }, [])}
+            />
           </div>
         </div>
 
@@ -102,32 +114,15 @@ const RoleMgmt = () => {
                 absolute
               />
             )}
-            <table className="mt-5 w-full border-y-2">
-              <thead className="border-y-2 text-left">
-                <th>name</th>
-                <th></th>
-              </thead>
-              <tbody>
-                {roles.map((role) => {
-                  return (
-                    <ExpandableRow
-                      key={role.id}
-                      endpoint={`roles/${role.name}`}
-                      fetchTriggerData={role}
-                    >
-                      <td className="w-5/6">{role.name}</td>
-                      <td>
-                        <EditIcon onClick={() => handleEdit(role)} />{" "}
-                        <DeleteIcon
-                          className="hover:bg-slate-300 "
-                          onClick={() => handleDelete(role.name)}
-                        />
-                      </td>
-                    </ExpandableRow>
-                  );
-                })}
-              </tbody>
-            </table>
+            <Table
+              datas={roles}
+              Row={(props) => <ExpandableRow {...props} />}
+              theads={["name"]}
+              rowPropsArray={rowPropsArray}
+              primary={"name"}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           </div>
         </div>
       </PageContainer>

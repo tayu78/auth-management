@@ -19,7 +19,7 @@ function App() {
       <BrowserRouter>
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
-            <Route element={<ProtectedRoute user={user} />}>
+            <Route element={<ProtectedRoute user={"hoge"} />}>
               <Route path="/home" element={<Home />} />
               <Route path="userManagement" element={<UserMgmt />} />
               <Route path="roleManagement" element={<RoleMgmt />} />
