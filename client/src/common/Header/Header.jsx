@@ -10,6 +10,7 @@ const Header = () => {
 
   const signOut = () => {
     setUser(null);
+    localStorage.removeItem("user");
     navigate("/signin");
   };
 
