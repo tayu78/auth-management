@@ -19,9 +19,7 @@ router.post("/", async (req, res) => {
       },
     });
     if (!permissions.length) {
-      return res
-        .status(404)
-        .json({ message: "Permissions with provided ids does not exist. " });
+      return res.status(400).json({ message: "Please select permissons." });
     }
 
     await role.addPermission(permissions);
