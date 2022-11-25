@@ -30,7 +30,12 @@ body{
 }
 .input-text:focus ~ label,
 .input-text:not(:placeholder-shown).input-text:not(:focus) ~ label {
-   @apply  -top-3 left-5  bg-white text-base
+   @apply  -top-3 left-5  bg-white text-base;
+}
+.input-text:focus ~  label.bg-purple,
+.input-text:not(:placeholder-shown).input-text:not(:focus) ~  label.bg-purple  {
+   /* @apply  -top-3 left-5   text-base; */
+   background: linear-gradient(180deg, #A7ADEA 0%, #A7ADEA 55%, #fff 55%, #fff 100%);
 }
 
 .font-blue-linear {

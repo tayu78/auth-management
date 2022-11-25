@@ -76,6 +76,7 @@ const SignForm = ({ isLogin }) => {
           <div className="flex flex-col items-center  ">
             {!isLogin && (
               <FormInput
+                optionalClass={["bg-purple"]}
                 label="username"
                 value={username}
                 handleChange={(e) => setUsername(e.target.value)}
@@ -83,12 +84,14 @@ const SignForm = ({ isLogin }) => {
             )}
 
             <FormInput
+              optionalClass={["bg-purple"]}
               label="email"
               type="email"
               value={email}
               handleChange={(e) => setEmail(e.target.value)}
             />
             <FormInput
+              optionalClass={["bg-purple"]}
               label="password"
               type="password"
               value={password}
