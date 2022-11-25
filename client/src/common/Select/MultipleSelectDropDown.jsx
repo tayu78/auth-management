@@ -1,11 +1,10 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useMemo } from "react";
 import Select from "react-select";
 
 const MultipleSelectDropDown = ({
   options,
   keyName,
   setSelectedOptions,
-  initialValue,
   value,
   setValue,
 }) => {
@@ -14,8 +13,6 @@ const MultipleSelectDropDown = ({
       return { ...el, value: el[keyName], label: el[keyName] };
     });
   }, [keyName, options]);
-
-  // const [value, setValue] = useState(null);
 
   const handleChange = (ops) => {
     console.log("changed", ops);
@@ -32,15 +29,7 @@ const MultipleSelectDropDown = ({
     );
   };
 
-  return (
-    <Select
-      // defaultValue={value}
-      onChange={handleChange}
-      options={ops}
-      value={value}
-      isMulti
-    />
-  );
+  return <Select onChange={handleChange} options={ops} value={value} isMulti />;
 };
 
 export default MultipleSelectDropDown;

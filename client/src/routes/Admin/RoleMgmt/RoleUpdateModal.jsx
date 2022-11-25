@@ -19,11 +19,16 @@ const RoleUpdateModal = ({
     })
   );
 
-  const initialValue = useMemo(() => {
-    return selectedPermissions.map((permission) => {
+  // const initialValue = useMemo(() => {
+  //   return selectedPermissions.map((permission) => {
+  //     return { ...permission, value: permission.name, label: permission.name };
+  //   });
+  // }, [selectedPermissions]);
+  const [value, setValue] = useState(
+    selectedPermissions.map((permission) => {
       return { ...permission, value: permission.name, label: permission.name };
-    });
-  }, [selectedPermissions]);
+    })
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +60,8 @@ const RoleUpdateModal = ({
             options={permissions}
             keyName="name"
             setSelectedOptions={setSelectedPermissions}
-            initialValue={initialValue}
+            value={value}
+            setValue={setValue}
           />
         </div>
         <div className="text-right">
