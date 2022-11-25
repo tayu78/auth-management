@@ -19,6 +19,7 @@ const SignForm = ({ isLogin }) => {
 
   const signIn = (user) => {
     setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
     navigate("/");
   };
 

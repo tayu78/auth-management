@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./index.css";
@@ -12,8 +12,7 @@ import { UserContext } from "./contexts/UserContext";
 import ProtectedRoute from "./common/ProtectedRoute";
 
 function App() {
-  const [user, setUser] = useState(null);
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   return (
     <>
       <BrowserRouter>
