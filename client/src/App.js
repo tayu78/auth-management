@@ -20,12 +20,12 @@ function App() {
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="userManagement" element={<UserMgmt />} />
               <Route path="roleManagement" element={<RoleMgmt />} />
               <Route path="permissionManagement" element={<PermissionMgmt />} />
             </Route>
-            <Route path="/" element={<Landing />} />
+            <Route path="/landing" element={<Landing />} />
             <Route path="signin" element={<SignForm isLogin />} />
             <Route path="signup" element={<SignForm />} />
             <Route path="*" element={<div>404 Page Not found</div>} />
