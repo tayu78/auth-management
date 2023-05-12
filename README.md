@@ -1,5 +1,29 @@
 # auth-management
 
+<img width="1440" alt="auth-management" src="https://github.com/tayu78/auth-management/assets/73221904/08843228-ac0f-4c44-bf70-e576480e241e">
+
+## What is this app?
+This is an app that allows admin user to magnage application user's **permissson** easily.
+Basically we want to restrict applciation user's action depends on **permission**.
+It's cumbersome to attach all **permisison** they needed everytime we create user.
+So what we can to is create **role** containing specific **permission**\. 
+For exapmle, we can create `userManagement` **role** containing 
+- read user
+- create user
+- update user
+- delete user
+
+and then, just attach to `userManagement` **role** to user
+
+
+
+
+## Tech Stack
+- React
+- Node.js(Express)
+- PostgreSQL
+- sequelize
+
 
 ## Preview
 
@@ -9,7 +33,7 @@
  
 **Home**
 
- <img src="https://github.com/tayu78/auth-management/assets/73221904/3d53e822-e333-4707-a486-4d976d5efc0c" width="750" >
+ <img src="https://github.com/tayu78/auth-management/assets/73221904/3d53e822-e333-4707-a486-4d976d5efc0c" width="700" >
  
  **Permission**
  
